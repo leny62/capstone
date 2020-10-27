@@ -1,5 +1,5 @@
-const mongoose = require('mongoose');
-const inquirySchema = new mongoose.Schema({
+import { Schema, model } from 'mongoose';
+const inquirySchema = new Schema({
     name: {
         type: String,
         required: true
@@ -13,9 +13,9 @@ const inquirySchema = new mongoose.Schema({
         required: true
 
     },
-    date: {
-        type: String,
-        required: true
+    createdAt: {
+        type: Date,
+        default : new Date()
     },
     status: {
         type: String,
@@ -23,5 +23,6 @@ const inquirySchema = new mongoose.Schema({
     }
 })
 
-const Inquiry = mongoose.model('Inquiry',inquirySchema);
-module.exports.Inquiry = Inquiry;
+const Inquiry = model('Inquiry',inquirySchema);
+const _Inquiry = Inquiry;
+export { _Inquiry as Inquiry };

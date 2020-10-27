@@ -41,30 +41,17 @@ try {
 }
 
 export const getBlogs = async(req,res)=>{
-    const blogs = [] = await Blog.find();
-    let allBlogs = [];
-    blogs.forEach(async(blog) => {
-        await User.findOne({_id: blog.author}).then( user => {
-            allBlogs.push({
-             
-                    _id: blog._id,
-                    authorId: user._id,
-                    authorName: user.name,
-                    authorEmail: user.email,
-                    title: blog.title,
-                    content: blog.content,
-                    date: blog.date
-             
-            })
-            if(allBlogs.length == blogs.length){
-                return res.send({
-                    success: true,
-                    status: 200,
-                    blogs: allBlogs
-                }).status(200)
-            }
-          })
-    })
+    const blogs = await Blog.find();
+    
+    if(blogs.length === 0){
+       return res.send('No blogs in the database').status(400) 
+    }
+    return res.send({
+        success: true,
+        status: 200,
+        blogs: blogs
+    }).status(200)     
+
 }
 
 export const getBlogById = async(req,res) => {
