@@ -11,7 +11,7 @@ export const createAccount = async(req,res) => {
   let user=await users.findOne({email:req.body.email})
     if(user) return res.send('User already registered').status(400)
 
-    user =new User(pick(req.body,['name','email','password']))
+    user = new users(pick(req.body,['name','email','password']))
     const harshed = await hashPassword(user.password)
     user.password = harshed;
     user.role = 'STANDARD_USER',

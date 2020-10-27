@@ -17,9 +17,9 @@ const usersCollectionSchema = new Schema({
         type: String,
         required: true
     },
-     date: {
-         type: String,
-         required: true
+    createdAt: {
+         type: Date,
+         default : new Date()
      }
 })
  const users = model('users', usersCollectionSchema);
