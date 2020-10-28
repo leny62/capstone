@@ -20,7 +20,11 @@ app.use(json());
 app.use(urlencoded({extended: true}))
 
 app.get('/',(req,res)=>{
-    res.send("Welcome to my app").status(200)
+    res.send({
+        success: true,
+        status: 200,
+        message: "Welcome to my capstone app 🖐🏿😃"
+    }).status(200)
 })
 app.use(`${process.env.API_VERSION}/user`,usersRouter)
 app.use(`${process.env.API_VERSION}/blogs`,blogsRoutes);
