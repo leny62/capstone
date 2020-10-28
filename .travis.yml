@@ -1,17 +1,28 @@
 language: node_js
-
 node_js:
-  - 'stable'
+  - "stable"
+cache:
+  directories:
+    - "node_modules"
+
+install:
+  - npm install
 
 services:
   - mongodb
 
-cache:
-  directories:
-    - 'node_modules'
-    
+env:
+  global:
+  - NODE_ENV=test
+
+before_script:
+  - use testing
+
 script:
-  - npm run test
-  
+  - npm test
+after_success: 
+  - npm run coveralls
+
 notifications:
   email: false
+ 
