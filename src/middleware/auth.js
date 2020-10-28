@@ -21,7 +21,6 @@ const auth = (req,res,next) => {
 
     }
     catch(err){
-        console.log(err);
         res.send({success: false, error: err}).status(400)
     }
 }
