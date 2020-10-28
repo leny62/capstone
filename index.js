@@ -18,9 +18,6 @@ dotenv.config();
 app.use(json());
 app.use(urlencoded({extended: true}))
 
-// app.use(usersRouter)
-// app.use(blogsRoutes)
-
 app.get('/',(req,res)=>{
     res.send("Welcome to my app").status(200)
 })

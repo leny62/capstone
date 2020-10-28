@@ -10,17 +10,6 @@ import inquiryRoutes from './src/routes/inquiries';
 
 const app = express();
 
-
-// connect(`${process.env.CONNECTION_URL}`, {
-//     useNewUrlParser: true,
-//     useUnifiedTopology: true
-// }).then(()=>{
-//     console.log("App connected to DB...");
-// })
-// .catch((error)=>{
-//     console.log("App failed to connect to DB.. error "+error);
-// })
-
 app.use(json());
 app.use(urlencoded({extended: true}))
 
