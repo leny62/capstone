@@ -15,9 +15,6 @@ env:
   global:
   - NODE_ENV=test
 
-before_script:
-  - use testing
-
 script:
   - npm test
 after_success: 
