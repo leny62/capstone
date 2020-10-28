@@ -4,7 +4,7 @@
   "description": "My first server",
   "main": "index.js",
   "scripts": {
-    "start": "babel-node -- ./index.js",
+    "start": "babel-node index.js",
     "start:dev": "nodemon --exec babel-node index.js",
     "test": "set PORT=5000 && jest --coverage --setTimeout=30000 --detectOpenHandles --verbose"
   },
