@@ -92,7 +92,6 @@ export const updateStatus=async(req,res)=> {
     let inquiry;
     try{
         inquiry =  await Inquiry.findOne({_id: id});
-
     }
     catch(error){
         return res.send({
