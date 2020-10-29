@@ -5,11 +5,17 @@ import { compare } from 'bcrypt';
 import { users } from '../models/users';
 import getCurrentDate from '../utils/date';
 import jwtSigner from '../utils/jwtSigner';
+import Response from '../utils/response';
+
+const response = new Response();
 
 export const createAccount = async(req,res) => {
-    console.log(users);
-  let user=await users.findOne({email:req.body.email})
-    if(user) return res.send('User already registered').status(400)
+  let user=await users.findOne({email:req.body.email});
+
+    if(user){
+        response.setError(409,`A User with email ${req.body.email} Already exist`);
+        return response.send(res);
+        }
 
     user = new users(pick(req.body,['name','email','password']))
     const harshed = await hashPassword(user.password)

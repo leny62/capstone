@@ -11,7 +11,11 @@ export default(req,res,next,errorGot)=>{
             errorGot.details[0].message
             .replace('/', '')
             .replace(/"/g, '')
-            .includes('fails to match the required')
+            .includes('fails to match the required')||
+            errorGot.details[0].message
+            .replace('/', '')
+            .replace(/"/g, '')
+            .includes('contain alpha-numeric')
         ) {
           const Error = {
               errorMessage:'Incorrect use of special characters',

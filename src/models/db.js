@@ -1,10 +1,13 @@
 import { set, connect } from 'mongoose';
+import dotenv from 'dotenv';
+
 set('useNewUrlParser', true);
 set('useFindAndModify', false);
 set('useCreateIndex', true);
 set('useUnifiedTopology', true);
+dotenv.config();
 
-connect('mongodb://localhost:27017/test', {
+connect(`${process.env.CONNECTION_URL}`, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 })
@@ -14,6 +17,3 @@ connect('mongodb://localhost:27017/test', {
 import './users';
 import './blogs';
 import './inquiry';
-
-
-

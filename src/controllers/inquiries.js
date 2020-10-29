@@ -1,9 +1,9 @@
-const {validateInquiry} = require('../helper/schema/blogSchema');
-const {Inquiry} = require('../models/inquiry');
-const getCurrentDate = require('../utils/date').default;
+import { validateInquiry } from '../helper/schema/blogSchema';
+import { Inquiry } from '../models/inquiry';
+import getCurrentDate from '../utils/date';
 
 
-exports.sendInquiry = async(req,res) => {
+export const sendInquiry=async(req,res)=>{
     // const {error} = await validateInquiry(req.body);
     let data = req.body;
     // if(error) return res.send({
@@ -16,7 +16,7 @@ exports.sendInquiry = async(req,res) => {
        inquiry.name = data.name;
        inquiry.email = data.email;
        inquiry.message = data.message;
-       inquiry.date = await getCurrentDate();
+       inquiry.date = getCurrentDate();
        inquiry.save().then(inquiry => {
            res.send({
                success: true,
@@ -34,7 +34,7 @@ exports.sendInquiry = async(req,res) => {
 }
 
 
-exports.getInquiries = async(req,res) => {
+export const getInquiries=async(req,res)=> {
      await Inquiry.find().then(inquireis => {
          res.send({
              sucess: true,
@@ -50,7 +50,7 @@ exports.getInquiries = async(req,res) => {
      })
 }
 
-exports.getInquiryByStatus = async(req,res) => {
+export const getInquiryByStatus=async(req,res)=> {
     let status = req.params.status;
 
     await Inquiry.findOne({status: status}).then(inquireis => {
@@ -68,7 +68,7 @@ exports.getInquiryByStatus = async(req,res) => {
     })
 }
 
-exports.getInquiryById = async(req,res) => {
+export const getInquiryById=async(req,res)=> {
     let id = req.params.id;
 
     await Inquiry.findOne({_id: id}).then(inquireis => {
@@ -86,13 +86,12 @@ exports.getInquiryById = async(req,res) => {
     })
 }
 
-exports.updateStatus = async(req,res) => {
+export const updateStatus=async(req,res)=> {
     let id = req.params.id;
     let status = req.params.status;
     let inquiry;
     try{
         inquiry =  await Inquiry.findOne({_id: id});
-
     }
     catch(error){
         return res.send({

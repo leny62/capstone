@@ -8,8 +8,8 @@ const auth = (req,res,next) => {
         let header = req.headers.authorization;
 
         if(!header) return res.send({success: false, status: 401, message: 'Unauthorized'}).status(400);
-        const decode = verify(header, process.env.JWTKEY)
-        const user = decode;
+            const decode = verify(header, process.env.JWTKEY)
+            const user = decode;
 
         if(user){
             req.userInfo = user;
@@ -21,7 +21,6 @@ const auth = (req,res,next) => {
 
     }
     catch(err){
-        console.log(err);
         res.send({success: false, error: err}).status(400)
     }
 }
