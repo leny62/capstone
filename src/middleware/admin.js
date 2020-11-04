@@ -1,31 +1,28 @@
 import { verify } from 'jsonwebtoken';
-import dotenv from 'dotenv';
+import config from '../config/config';
 
-dotenv.config();
+const JWTKEY = config.JWTKEY;
 
-const isAdmin=(req,res,next)=>{
-    try{
-        let header = req.headers.authorization;
-
-        if(!header) return res.send({success: false, status: 401, message: 'Unauthorized'}).status(400);
-            const decode = verify(header, process.env.JWTKEY)
-            const user = decode;
-
-        if(user){
-            if(user.role === 'ADMIN'){
-                req.userInfo = user;
-                next();
-            }
-            else{
-                return res.send({success: false, status: 401, message: 'UnAuthorized'}).status(400);
-            }
-        }
-        else{
-            res.send({succes: false, status: 401, message: 'Invalid token'}).status(401)
-        }
+export const loggedUser = (req, res, next) => {
+    const header = req.header('auth-token');
+    
+    if (!header) return res.json('No access').status(401);
+    
+    try {
+        const decode = verify(header, JWTKEY);
+        req.user = decode;
+        
+        return next();
+    } catch (error) {
+        return res.json('Token not valid').status(403);
     }
-    catch(err){
-        res.send({success: false, error: err}).status(400)
-    }
+};
+
+export const isAdmin = (req, res, next) => {
+    // const  {role} = req.user;
+    // console.log(role)
+    
+    // if (!role) return res.json('No access').status();
+
+    return next();
 }
-export default isAdmin;  
