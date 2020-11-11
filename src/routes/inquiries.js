@@ -1,24 +1,15 @@
 import { Router } from 'express';
-import { sendInquiry, getInquiries, getInquiryByStatus, getInquiryById, updateStatus } from '../controllers/inquiries';
-import isAdmin from '../middleware/admin';
+import { createInquiry, getInquiries, getInquiryById, deleteInquiry } from '../controllers/inquiries';
+import { loggedUser } from '../middleware/admin';
 
 const router = Router();
 
-router.post('/sendInquiry', sendInquiry);
+router.post('/addInquiry', loggedUser, createInquiry );
 
-router.get('/',
-            [isAdmin], 
-            getInquiries
-);
+router.get('/', getInquiries);
 
-router.get('/:id', 
-                [isAdmin],
-                getInquiryById
-);
+router.get('/:id',getInquiryById);
 
-router.get('/byStatus/:status', [isAdmin],getInquiryByStatus);
-
-router.put('/updateStatus/inquiry/:id/status/:status', [isAdmin],updateStatus)
-
+router.delete('/delete/:id', loggedUser, deleteInquiry);
 
 export default router;

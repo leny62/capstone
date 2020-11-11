@@ -14,14 +14,14 @@ const usersCollectionSchema = new Schema({
         required: true
     },
     role: {
-        type: String,
-        required: true
+        type: Boolean,
+        default: false
     },
     createdAt: {
-         type: Date,
-         default : new Date()
-     }
+        type: Date,
+        default : new Date()
+    }
 })
- const users = model('users', usersCollectionSchema);
- const _users = users;
- export { _users as users };
+const Users = model('users', usersCollectionSchema);
+export default Users;
+

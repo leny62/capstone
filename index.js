@@ -1,37 +1,20 @@
-import './src/models/db';
-import { set } from 'mongoose';
-import express from 'express';
-import { json, urlencoded } from 'body-parser';
-import dotenv from 'dotenv';
-import usersRouter from './src/routes/users';
-import blogsRoutes from './src/routes/blogs';
-import inquiryRoutes from './src/routes/inquiries';
+import app from './app';
+// import express from 'express';
+// import mongoose from 'mongoose';
+// import config from './src/config/config';
+// import bodyParser from 'body-parser';
+// import usersRouter from './src/routes/users';
+// import blogsRoutes from './src/routes/blogs';
+// import commentsRoutes from './src/routes/comments';
+// import inquiryRoutes from './src/routes/inquiries';
 
+// const app = express();
 
-set('useNewUrlParser', true);
-set('useUnifiedTopology', true);
-
-const app = express();
-
-dotenv.config();
-
-
-app.use(json());
-app.use(urlencoded({extended: true}))
-
-app.get('/',(req,res)=>{
-    res.send({
-        success: true,
-        status: 200,
-        message: "Welcome to my capstone app 🖐🏿😃"
-    }).status(200)
-})
-app.use(`${process.env.API_VERSION}/user`,usersRouter)
-app.use(`${process.env.API_VERSION}/blogs`,blogsRoutes);
-app.use(`${process.env.API_VERSION}/inquiries`,inquiryRoutes);
-
+// const CONNECTION_URL = config.CONNECTION_URL;
+// mongoose.connect(`${CONNECTION_URL}`, {
+//     useNewUrlParser: true,
+//     useUnifiedTopology: true   
 const port = process.env.PORT;
-
-app.listen(port,()=>{ 
-    console.log("App connected "+port);
-})
+app.listen(port, () => { 
+    console.log("App connected on port " + port);
+});     

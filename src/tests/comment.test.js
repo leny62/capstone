@@ -2,7 +2,7 @@ import request from 'supertest';
 import mongoose from 'mongoose';
 import config from '../config/config';
 import {signToken} from '../helper/signToken';
-import Blogs from '../models/blogs';
+import Comments from '../models/comments';
 import app from '../../app';
 import Blog from '../models/blogs';
 import { add } from 'lodash';
@@ -11,7 +11,7 @@ const DB_Url = config.CONNECTION_URL_Testing;
 
 jest.useFakeTimers();
 
-describe('Testing Blogs', () => {
+describe('Testing Comments', () => {
     // beforeAll(() => {
     //     mongoose.connect(DB_Url, {
     //     useNewUrlParser: true,
@@ -20,7 +20,7 @@ describe('Testing Blogs', () => {
     //     });
     // });
     let token;
-    let blog;
+    let comment;
     
     beforeEach( async () => {
         const user1 = {
@@ -30,64 +30,44 @@ describe('Testing Blogs', () => {
             password: 'Muhire123@'
         };
         
-        blog = {
-            title: 'Software development',
+        comment = {
             author: user1.name,
-            content: 'This is software development'
+            comment: 'This is software development'
         }
         token = signToken(user1);
     });
     
-    afterEach( async () => await Blogs.deleteMany());
+    afterEach( async () => await Comments.deleteMany());
     
-    test('All blogs', async (done) => {
+    test('All inquiries', async (done) => {
         const res = await request(app)
-            .get('/api/v1/blogs')
+            .get('/api/v1/comments')
             .set('auth-token', token);
             
             expect(res.status).toBe(200);
             done();
     });
     
-    test('Create blog', async (done) => {
+    test('Create comment', async (done) => {
         const res = await request(app)
-            .post('/api/v1/blogs/addBlog')
+            .post('/api/v1/comments/addComment')
             .set('auth-token', token)
-            .send(blog);
+            .send(comment);
             
             expect(res.status).toBe(200);
             done();
     });
     
-    test('Delete blog', async (done) => {
-        const newBlog = await Blog(blog);
-        const addedBlog = await newBlog.save();
-        const id = addedBlog._id;
+    test('Delete comment', async (done) => {
+        const newComment = await Comments(comment);
+        const addedComment = await newComment.save();
+        const id = addedComment._id;
         
         const res = await request(app)
-            .delete(`/api/v1/blogs/delete/${id}`)
+            .delete(`/api/v1/comments/delete/${id}`)
             .set('auth-token', token);
             
         expect(res.status).toBe(200);
-        done();
-    });
-    
-    test('Blog Update', async (done) => {
-        
-        const newBlog = await Blog(blog);
-        const addedBlog = await newBlog.save();
-        const id = addedBlog._id;
-        
-        const res = await request(app)
-            .put(`/api/v1/blogs/${id}`)
-            .set('auth-token', token)
-            .send({
-                title: 'Software development Edited',
-                author: 'Anyone',
-                content: 'This is software development edited'
-            });
-            
-        expect(res.status).toEqual(404);
         done();
     });
 });

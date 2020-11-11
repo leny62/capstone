@@ -1,15 +1,11 @@
 import mongoose from 'mongoose';
 
-const blogSchema = mongoose.Schema({
-    title: {
-        type: String,
-        required: true
-    },
+const commentSchema = mongoose.Schema({
     author:{
         _id: mongoose.Schema.Types.ObjectId,
         name: String
     },
-    content: {
+    comment: {
         type: String,
         required: true,
     },
@@ -19,6 +15,6 @@ const blogSchema = mongoose.Schema({
     },
 })
 
-const Blog = mongoose.model("Blog", blogSchema);
+const Comment = mongoose.model("Comment", commentSchema);
 
-export default Blog;
+export default Comment;

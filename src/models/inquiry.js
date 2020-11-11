@@ -1,28 +1,20 @@
-import { Schema, model } from 'mongoose';
-const inquirySchema = new Schema({
-    name: {
-        type: String,
-        required: true
-    },
-    email: {
-        type: String,
-        required: true
-    },
-    message: {
-        type: String,
-        required: true
+import mongoose from 'mongoose';
 
+const inquirySchema = mongoose.Schema({
+    author:{
+        _id: mongoose.Schema.Types.ObjectId,
+        name: String
     },
-    createdAt: {
-        type: Date,
-        default : new Date()
-    },
-    status: {
+    inquiry: {
         type: String,
-        default: 1
-    }
+        required: true,
+    },
+    date: {
+        type: Date,
+        default: new Date(),
+    },
 })
 
-const Inquiry = model('Inquiry',inquirySchema);
-const _Inquiry = Inquiry;
-export { _Inquiry as Inquiry };
+const Inquiry = mongoose.model("Inquiry", inquirySchema);
+
+export default Inquiry;
