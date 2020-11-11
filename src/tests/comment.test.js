@@ -2,7 +2,7 @@ import request from 'supertest';
 import mongoose from 'mongoose';
 import config from '../config/config';
 import {signToken} from '../helper/signToken';
-import Inquiries from '../models/inquiry';
+import Comments from '../models/comments';
 import app from '../../app';
 import Blog from '../models/blogs';
 import { add } from 'lodash';
@@ -11,7 +11,7 @@ const DB_Url = config.CONNECTION_URL_Testing;
 
 jest.useFakeTimers();
 
-describe('Testing Inquiries', () => {
+describe('Testing Comments', () => {
     // beforeAll(() => {
     //     mongoose.connect(DB_Url, {
     //     useNewUrlParser: true,
@@ -20,51 +20,51 @@ describe('Testing Inquiries', () => {
     //     });
     // });
     let token;
-    let inquiry;
+    let comment;
     
     beforeEach( async () => {
         const user1 = {
             _id: mongoose.Types.ObjectId().toHexString(),
-            name: 'leny IHIRWE',
-            email: 'lihirwe6@gmail.com',
-            password: 'leny123'
+            name: 'Jayb Muhire',
+            email: 'muhire@gmail.com',
+            password: 'Muhire123@'
         };
         
-        inquiry = {
+        comment = {
             author: user1.name,
-            inquiry: 'This is software development'
+            comment: 'This is software development'
         }
         token = signToken(user1);
     });
     
-    afterEach( async () => await Inquiries.deleteMany());
+    afterEach( async () => await Comments.deleteMany());
     
     test('All inquiries', async (done) => {
         const res = await request(app)
-            .get('/api/v1/inquiries')
+            .get('/api/v1/comments')
             .set('auth-token', token);
             
             expect(res.status).toBe(200);
             done();
     });
     
-    test('Create inquiry', async (done) => {
+    test('Create comment', async (done) => {
         const res = await request(app)
-            .post('/api/v1/inquiries/addInquiry')
+            .post('/api/v1/comments/addComment')
             .set('auth-token', token)
-            .send(inquiry);
+            .send(comment);
             
             expect(res.status).toBe(200);
             done();
     });
     
-    test('Delete inquiry', async (done) => {
-        const newInquiry = await Inquiries(inquiry);
-        const addedInquiry = await newInquiry.save();
-        const id = addedInquiry._id;
+    test('Delete comment', async (done) => {
+        const newComment = await Comments(comment);
+        const addedComment = await newComment.save();
+        const id = addedComment._id;
         
         const res = await request(app)
-            .delete(`/api/v1/inquiries/delete/${id}`)
+            .delete(`/api/v1/comments/delete/${id}`)
             .set('auth-token', token);
             
         expect(res.status).toBe(200);
