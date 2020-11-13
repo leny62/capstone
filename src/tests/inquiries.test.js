@@ -39,7 +39,7 @@ describe('Testing Inquiries', () => {
     
     afterEach( async () => await Inquiries.deleteMany());
     
-    test('All inquiries', async (done) => {
+    it('All inquiries', async (done) => {
         const res = await request(app)
             .get('/api/v1/inquiries')
             .set('auth-token', token);
@@ -48,7 +48,7 @@ describe('Testing Inquiries', () => {
             done();
     });
     
-    test('Create inquiry', async (done) => {
+    it('Create inquiry', async (done) => {
         const res = await request(app)
             .post('/api/v1/inquiries/addInquiry')
             .set('auth-token', token)
@@ -58,7 +58,7 @@ describe('Testing Inquiries', () => {
             done();
     });
     
-    test('Delete inquiry', async (done) => {
+    it('Delete inquiry', async (done) => {
         const newInquiry = await Inquiries(inquiry);
         const addedInquiry = await newInquiry.save();
         const id = addedInquiry._id;

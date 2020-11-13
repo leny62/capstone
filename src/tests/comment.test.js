@@ -25,9 +25,9 @@ describe('Testing Comments', () => {
     beforeEach( async () => {
         const user1 = {
             _id: mongoose.Types.ObjectId().toHexString(),
-            name: 'Jayb Muhire',
-            email: 'muhire@gmail.com',
-            password: 'Muhire123@'
+            name: 'Leny Ihirwe',
+            email: 'leny@gmail.com',
+            password: 'leny123@'
         };
         
         comment = {
