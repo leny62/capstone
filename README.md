@@ -1,5 +1,5 @@
 # capstone-server
-My first Server for Andela cohort 3 capstone project.
+My first Server for my portfolio capstone project.
 [![Build Status](https://travis-ci.org/leny62/capstone.svg?branch=develop)](https://travis-ci.org/leny62/capstone)
 
 # Portfolio api
